@@ -36,32 +36,19 @@ func schedule(jobName string, mapFiles []string, nReduce int, phase jobPhase, re
 	//
 
 	freeWorker := <-registerChan
-	var err error
 
-	switch phase {
-	case mapPhase:
-		for i := 0; i < len(mapFiles); i++ {
-			task := DoTaskArgs{
-				JobName:       jobName,
-				Phase:         phase,
-				File:          mapFiles[i],
-				TaskNumber:    ntasks,
-				NumOtherPhase: n_other,
-			}
-			call(freeWorker, "DoTask", task, err)
-		}
-	case reducePhase:
+	var err error
+	for i := 0; i < ntasks; i++ {
+
 		task := DoTaskArgs{
 			JobName:       jobName,
 			Phase:         phase,
-			File:          "",
-			TaskNumber:    ntasks,
+			File:          mapFiles[i],
+			TaskNumber:    i,
 			NumOtherPhase: n_other,
 		}
-		call(freeWorker, "DoTask", task, err)
+		call(freeWorker, "Worker.DoTask", task, err)
 	}
 
-	if err != nil {
-		fmt.Printf("Schedule: %v phase done\n", phase)
-	}
+	fmt.Printf("Schedule: %v phase done\n", phase)
 }
