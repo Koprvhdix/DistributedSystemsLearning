@@ -67,6 +67,7 @@ func doMap(
 
 	fileContent := make(map[string][]KeyValue)
 
+	fmt.Println("fileName: ", inFile)
 	fmt.Println("mapTaskNumber: ", mapTaskNumber)
 
 	for _, kv := range keyValue {
