@@ -45,12 +45,15 @@ func schedule(jobName string, mapFiles []string, nReduce int, phase jobPhase, re
 			TaskNumber:    i,
 			NumOtherPhase: n_other,
 		}
-		call(freeWorker, "Worker.DoTask", task, err)
+		result := call(freeWorker, "Worker.DoTask", task, err)
+		fmt.Println(i, "!!result!!:", result)
 
-		if err == nil {
+		if result {
 			go func() {
 				registerChan <- freeWorker
 			}()
+		} else {
+			i--
 		}
 	}
 
