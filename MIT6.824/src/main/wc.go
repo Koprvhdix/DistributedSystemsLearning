@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"DistributedSystemsLearning/MIT6.824/src/mapreduce"
+	"mapreduce"
 	"os"
 	"strings"
 	"strconv"
