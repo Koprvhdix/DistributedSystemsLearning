@@ -18,7 +18,7 @@ package raft
 //
 
 import "sync"
-import "labrpc"
+import "DistributedSystemsLearning/MIT6.824/src/labrpc"
 
 // import "bytes"
 // import "labgob"
